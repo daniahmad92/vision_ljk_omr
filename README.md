@@ -34,4 +34,32 @@
 
     Setelah semua jawaban diidentifikasi, skor akhir dihitung. Skor dihitung berdasarkan jumlah jawaban yang benar dan jumlah total pertanyaan yang ada dalam lembar jawaban. Skor ini kemudian dicetak pada gambar sebagai umpan balik visual bagi pengguna.
 
-Dengan demikian, serangkaian kode ini menggambarkan proses umum dalam pengolahan lembar jawaban objektif, yang meliputi pra-pemrosesan gambar, deteksi objek, identifikasi jawaban, dan perhitungan skor.
+Dengan demikian, serangkaian kode ini menggambarkan proses umum dalam pengolahan lembar jawaban objektif, yang meliputi pra-pemrosesan gambar, deteksi objek, identifikasi jawaban, dan perhitungan sko
+
+
+Dalam script yang diberikan untuk melakukan analisis lembar jawaban objektif, digunakan beberapa fungsi yang disediakan oleh pustaka OpenCV (cv2), pustaka imutils, dan pustaka NumPy. Berikut adalah fungsi-fungsi yang digunakan dalam script tersebut:
+
+1. **OpenCV (cv2)**:
+    - `cv2.imread()`: Membaca gambar dari file.
+    - `cv2.cvtColor()`: Mengubah ruang warna gambar.
+    - `cv2.GaussianBlur()`: Melakukan operasi pemulusan gambar dengan filter Gaussian.
+    - `cv2.Canny()`: Mendeteksi tepi dalam gambar.
+    - `cv2.findContours()`: Mencari kontur dalam gambar.
+    - `cv2.threshold()`: Melakukan thresholding pada gambar.
+    - `cv2.drawContours()`: Menggambar kontur pada gambar.
+    - `cv2.putText()`: Menambahkan teks ke gambar.
+    - `cv2.imshow()`: Menampilkan gambar di jendela.
+    - `cv2.waitKey()`: Menunggu penekanan tombol pada jendela.
+    - `cv2.destroyAllWindows()`: Menutup semua jendela yang ditampilkan.
+
+2. **imutils**:
+    - `imutils.perspective.four_point_transform()`: Melakukan transformasi perspektif empat titik.
+    - `imutils.contours.sort_contours()`: Mengurutkan kontur berdasarkan ukuran atau lokasi.
+
+3. **NumPy**:
+    - `np.arange()`: Membuat array berurutan.
+    - `np.zeros()`: Membuat array nol.
+    - `np.asarray()`: Mengubah daftar menjadi array NumPy.
+    - `np.count_nonzero()`: Menghitung jumlah elemen yang bukan nol dalam array.
+
+Dengan menggunakan fungsi-fungsi ini, script dapat membaca, memproses, dan menganalisis gambar lembar jawaban secara efektif. Setiap fungsi memiliki peran khusus dalam proses analisis, seperti pembacaan gambar, transformasi perspektif, deteksi tepi, dan identifikasi jawaban yang benar.
