@@ -1,0 +1,50 @@
+import cv2
+import numpy as np
+
+# Baca gambar lembar jawaban siswa
+image_path = "path_to_student_answer_sheet.jpg"
+image = cv2.imread(image_path)
+
+# Konversi ke citra abu-abu
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# Lakukan thresholding untuk memisahkan jawaban siswa
+_, thresholded = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY_INV)
+
+# Temukan kontur dari jawaban siswa
+contours, _ = cv2.findContours(thresholded.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+# Inisialisasi list untuk menyimpan jawaban siswa
+student_answers = []
+
+# Loop melalui setiap kontur dan tentukan jawaban siswa
+for contour in contours:
+    # Hitung luas kontur
+    area = cv2.contourArea(contour)
+
+    # Jika luas kontur lebih besar dari ambang batas, tandai sebagai jawaban siswa
+    if area > 100:
+        # Dapatkan koordinat kotak pembatas kontur
+        x, y, w, h = cv2.boundingRect(contour)
+        
+        # Crop bagian gambar yang berisi jawaban siswa
+        student_answer_region = gray[y:y+h, x:x+w]
+        
+        # Hitung nilai piksel rata-rata di bagian cropped
+        mean_pixel_value = np.mean(student_answer_region)
+        
+        # Tentukan jawaban berdasarkan nilai piksel rata-rata
+        # Misalnya, jika nilai piksel rata-rata < 100, jawaban adalah 'A', dan seterusnya
+        if mean_pixel_value < 100:
+            student_answers.append('A')
+        elif mean_pixel_value < 150:
+            student_answers.append('B')
+        elif mean_pixel_value < 200:
+            student_answers.append('C')
+        elif mean_pixel_value < 220:
+            student_answers.append('D')
+        else:
+            student_answers.append('E')
+
+# Print jawaban siswa
+print("Jawaban Siswa:", student_answers)
